@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import getRestaurants from './utils/api';
+import CuisineList from './components/CuisineList';
+
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        numRestaurant: "",
+        topCuisines: [],
+        bestRatedRestaurant: [],
+        location: ""
+    }
+  }
+
+  async componentWillMount() {
+      const results = await getRestaurants()
+      const { location, top_cuisines, best_rated_restaurant, num_restaurant} = results
+      this.setState({
+        numRestaurant: num_restaurant,
+        bestRatedRestaurant: best_rated_restaurant,
+        topCuisines: top_cuisines,
+        location
+      })
+    }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="top_cuisines">
+          <CuisineList cuisines={this.state.topCuisines}/>
+        </div>
       </div>
     );
   }
