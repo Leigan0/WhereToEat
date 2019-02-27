@@ -1,6 +1,6 @@
-export default async () => {
+export default async (url) => {
     try {
-        const response = await fetch(`https://developers.zomato.com/api/v2.1/location_details?entity_id=61054&entity_type=subzone`, {
+        const response = await fetch(`${url}`, {
             method: 'GET',
             headers: {
                 'user-key': `${process.env.REACT_APP_API_KEY}`            }

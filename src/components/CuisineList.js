@@ -2,14 +2,15 @@ import React from 'react';
 
 class CuisineList extends React.Component {
     render(){
-        console.log(this.props)
-
-        const items = this.props.cuisines
-        const listItems = items.map((i) => <li key={i}> {i} </li>
+        const cuisines = this.props.items
+        const listCuisines = cuisines.map((i) => <button key={i} onClick={() => this.props.handleCuisineSelect(i)}> {i} </button>
         )
         return (
             <div className="cuisineListMain">
-             <ol>{listItems}</ol>
+                {listCuisines}
+                
+                <div> Number of Restaurants found: {this.props.numRestaurant}</div>
+
             </div>
         )
     }
