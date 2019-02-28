@@ -8,16 +8,14 @@
 }
 
 .restaurantContainer {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
+  display: inline-grid;
+  grid-column-gap: 50px;
+  grid-row-gap: 100px;
+  grid-template-columns: 400px;
 
 }
 
-.restaurantContainer div {
-  flex-grow: 3;
-}
-
-.container {
-  flex-grow: 1;
+.container2{
+  background-color: rgb(221, 48, 62, 0.7);
+  color: #ffffff
 }

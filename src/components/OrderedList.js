@@ -4,12 +4,11 @@ import Restaurant from './Restaurant'
 class OrderedList extends React.Component {
     render(){
         const items = this.props.items
-        const id = 1
-        const listItems = items.map((i) => <li key={ i.restaurant.id || i + id}> <Restaurant restaurant={i.restaurant}/>  </li> 
+        const listItems = items.map((i) => <Restaurant restaurant={i.restaurant} key={ i.restaurant.id}/>
         )
         return (
             <div className="cuisineListMain">
-                <ol>{listItems}</ol>
+                <div>{listItems}</div>
             </div>
         )
     }

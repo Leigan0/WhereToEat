@@ -6,8 +6,8 @@ class Restaurant extends React.Component {
 
         return (
             <div className="restaurantContainer">
-                <div className="container"><img src={thumb} alt="restThumb" /></div>
-                <div>
+                <div className="container2">
+                    <div><img src={thumb|| "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfBW8x-HKfeTUdY4ELAWW8zU9EQ5KIAJ54HL-y7A2RQgh58_H6ZA"} height="200" width="200"alt="restThumb" /></div>
                     <div className="name"> {name}</div>
                     <div className="location"> {location.address}</div>
                     <div className="avgCost">£{average_cost_for_two}</div>
