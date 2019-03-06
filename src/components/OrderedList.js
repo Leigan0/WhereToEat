@@ -1,18 +1,26 @@
-import React from 'react';
-import Restaurant from './Restaurant'
+import React from "react";
+import Restaurant from "./Restaurant";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 
 class OrderedList extends React.Component {
-    render(){
-        const items = this.props.items
-        const listItems = items.map((i) => <Restaurant restaurant={i.restaurant} key={ i.restaurant.id}/>
-        )
-        return (
-            <div className="cuisineListMain">
-                <div>{listItems}</div>
-            </div>
-        )
+    componentDidUpdate(prevProps) {
+        if (this.props.items !== prevProps.items) {
+        }
     }
-
+    render() {
+        return (
+            <GridList cols={3}>
+                {this.props.items.map(i => {
+                    return (
+                        <GridListTile key={i.restaurant.id}>
+                            <Restaurant restaurant={i.restaurant} key={i.restaurant.id} />
+                        </GridListTile>
+                    );
+                })}
+            </GridList>
+        );
+    }
 }
 
 export default OrderedList;

@@ -3,7 +3,6 @@ import apiData from './utils/api';
 import OrderedList from './components/OrderedList';
 import CuisineList from './components/CuisineList'
 import Header from './components/Header';
-
 import './App.css';
 
 class App extends Component {
@@ -31,19 +30,25 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    const locationResults = await apiData(`https://developers.zomato.com/api/v2.1/location_details?entity_id=${this.state.location.entity_id}&entity_type=${this.state.location.entity_type}`)
-    const restaurantsInArea = await apiData(`https://developers.zomato.com/api/v2.1/search?lat=${this.state.location.latitude}&lon=${this.state.location.longitude}&sort=real_distance&order=asc`)
-    const { location, best_rated_restaurant } = locationResults
-    const { restaurants } = restaurantsInArea
-    const cuisines = this.filterCuisines(restaurants);
+  componentDidMount() {
+    this.getApiData()
 
-    this.setState({
-      bestRatedRestaurant: best_rated_restaurant,
-      location,
-      restaurantList: restaurants.concat(best_rated_restaurant),
-      cuisines,
-    })
+  }
+
+    async getApiData() {
+      const locationResults = await apiData(`https://developers.zomato.com/api/v2.1/location_details?entity_id=${this.state.location.entity_id}&entity_type=${this.state.location.entity_type}`)
+      const restaurantsInArea = await apiData(`https://developers.zomato.com/api/v2.1/search?lat=${this.state.location.latitude}&lon=${this.state.location.longitude}&sort=real_distance&order=asc`)
+      const { location, best_rated_restaurant } = locationResults
+      const { restaurants } = restaurantsInArea
+
+      const cuisines = this.filterCuisines(restaurants);
+      this.setState({
+        bestRatedRestaurant: best_rated_restaurant,
+        location,
+        restaurantList: restaurants.concat(best_rated_restaurant),
+        cuisines,
+      })
+
   }
 
   handleChange = e => {
@@ -55,16 +60,18 @@ class App extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const location = this.state.userLocation
+
     const url = `https://developers.zomato.com/api/v2.1/locations?query=${location}`
     const resp = await apiData(url)
-    const {location_suggestions} = resp 
+    const { location_suggestions } = resp 
     const locationData = location_suggestions[0]
-    this.setState({
-      location: locationData
-    })
-    this.componentDidMount()
 
-  }
+    this.setState({
+      location: locationData,
+      filteredResults:[]
+    })
+    this.getApiData()
+    }
 
 
   handleCuisineSelect = e => {

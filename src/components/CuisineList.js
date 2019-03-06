@@ -1,4 +1,6 @@
 import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 class CuisineList extends React.Component {
     numRestaurant() {
@@ -8,8 +10,9 @@ class CuisineList extends React.Component {
     }
     render() {
         const cuisines = this.props.items
-        const listCuisines = cuisines.map((i) => <button key={i} onClick={() => this.props.handleCuisineSelect(i)}> {i} </button>
-        )
+        const listCuisines = cuisines.map((i) => {
+        return <ListItem button key={i} onClick={() => this.props.handleCuisineSelect(i)}>  {i}  <ListItemText /> </ListItem>
+            })
         return (
             <div className="cuisineListMain">
                 {listCuisines}
